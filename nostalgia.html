@@ -4,26 +4,34 @@
     <meta charset="UTF-8">
     <title>Dan's Windows 98 - Neon Edition</title>
     <style>
+        /* --- YOUR FONT AND BASE STYLES --- */
+        @font-face { font-family: 'Lato'; font-style: italic; font-weight: 400; src: local('Lato Italic'), local('Lato-Italic'), url(https://fonts.gstatic.com/s/lato/v15/S6u8w4BMUTPHjxsAUi-qNiXg7eU0.woff2) format('woff2'); unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+        @font-face { font-family: 'Lato'; font-style: normal; font-weight: 400; src: local('Lato Regular'), local('Lato-Regular'), url(https://fonts.gstatic.com/s/lato/v15/S6uyw4BMUTPHjx4wXiWtFCc.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        
         body {
-            background: #008080 url('images/mystery.jpg') no-repeat center center fixed; 
-            background-size: cover;
-            font-family: "Tahoma", sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+            background: black;
+            font-family: 'Lato', Verdana, Helvetica, sans-serif;
             margin: 0;
             overflow: hidden;
-            transition: filter 2s ease-in-out;
         }
 
-        /* --- GLOBAL NEON GLOW FOR ALL WINDOWS --- */
+        #desktop-wrapper {
+            height: 100vh;
+            width: 100vw;
+            transition: filter 2s ease-in-out, opacity 2s ease-in-out;
+            background: #008080 url('images/mystery.jpg') no-repeat center center fixed;
+            background-size: cover;
+            position: relative;
+        }
+
+        /* --- NEON ANIMATIONS --- */
         @keyframes neon-pulse {
             0% { border-color: #ff00ff; box-shadow: 0 0 15px #ff00ff; }
             50% { border-color: #00ffff; box-shadow: 0 0 30px #00ffff; }
             100% { border-color: #ff00ff; box-shadow: 0 0 15px #ff00ff; }
         }
 
+        /* --- WINDOW STYLING --- */
         .win98-window {
             background-color: #c0c0c0;
             border: 3px solid #ff00ff;
@@ -32,42 +40,55 @@
             position: absolute;
             z-index: 100;
             box-shadow: 5px 5px 15px rgba(0,0,0,0.5);
-        }
-
-        /* Shutdown Overlay */
-        #shutdown-screen {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: black;
-            z-index: 9999;
+            display: flex;
             flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
         }
 
         .title-bar {
             background: linear-gradient(90deg, #000080, #1084d0);
-            padding: 3px 10px;
+            padding: 3px 3px 3px 10px;
             color: white;
             font-weight: bold;
             font-size: 13px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            height: 18px;
+            cursor: grab;
+            user-select: none;
         }
 
-        .close-btn { background: #c0c0c0; border: 1px solid #000; font-size: 10px; cursor: pointer; padding: 0 3px; }
+        .title-bar-controls { display: flex; gap: 2px; align-items: center; padding-right: 2px; }
+
+        .title-bar-controls button {
+            cursor: pointer !important;
+            width: 16px;
+            height: 14px;
+            background: #c0c0c0;
+            color: black;
+            border: 1px solid #fff;
+            border-right-color: #808080;
+            border-bottom-color: #808080;
+            box-shadow: inset 1px 1px #dfdfdf, 1px 1px #000;
+            font-family: sans-serif;
+            font-size: 10px;
+            font-weight: bold;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0;
+            line-height: 1;
+        }
 
         .content { background: #fff; border: 1px solid #808080; margin: 2px; padding: 25px; color: #000; max-height: 400px; overflow-y: auto; }
 
-        /* Taskbar & Start */
         .taskbar {
             position: fixed; bottom: 0; left: 0; width: 100%; height: 30px;
             background: #c0c0c0; border-top: 2px solid #fff; z-index: 1000;
             display: flex; justify-content: space-between; align-items: center; padding: 0 5px;
         }
+        #task-list { display: flex; gap: 5px; flex-grow: 1; margin: 0 10px; }
+        .task-tab { background: #c0c0c0; border: 2px outset #fff; font-size: 11px; padding: 2px 5px; min-width: 80px; cursor: pointer; }
 
         #start-menu {
             display: none; position: fixed; bottom: 30px; left: 0;
@@ -79,133 +100,243 @@
 
         .desktop-icons { position: absolute; top: 20px; left: 20px; display: flex; flex-direction: column; gap: 25px; }
         .icon-unit { width: 75px; text-align: center; color: white; font-size: 11px; text-shadow: 1px 1px #000; cursor: pointer; }
+
+        #shutdown-screen {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: black; z-index: 9999; flex-direction: column; 
+            justify-content: center; align-items: center; text-align: center;
+        }
     </style>
 </head>
 <body onclick="playStartup()">
 
-    <audio id="startup-audio" src="audio/win98.mp3"></audio>
-    <audio id="shutdown-audio" src="audio/winxp.mp3"></audio>
+    <div id="desktop-wrapper">
+        <audio id="startup-audio" src="audio/win98.mp3"></audio>
+        <audio id="shutdown-audio" src="audio/winxp.mp3"></audio>
+
+        <div class="desktop-icons">
+            <div class="icon-unit" onclick="toggleWindow('about-window', event)">
+                <img src="https://win98icons.alexmeub.com/icons/png/computer_explorer-4.png" width="32"><br>My Computer
+            </div>
+            <div class="icon-unit" onclick="toggleWindow('display-window', event)">
+                <img src="https://win98icons.alexmeub.com/icons/png/display_properties-1.png" width="32"><br>Display
+            </div>
+            <div class="icon-unit" onclick="toggleWindow('game-window', event); initMinesweeper();">
+                <img src="https://win98icons.alexmeub.com/icons/png/minesweeper-0.png" width="32"><br>Minesweeper
+            </div>
+            <div class="icon-unit" onclick="triggerShutdown()">
+                <img src="https://win98icons.alexmeub.com/icons/png/shut_down_normal-4.png" width="32"><br>Shut Down
+            </div>
+        </div>
+
+        <div class="win98-window" id="login-window" style="width: 380px; top: 30%; left: 35%;">
+            <div class="title-bar"><span>Windows Network Login</span></div>
+            <div class="content">
+                <div style="display: flex; gap: 15px;">
+                    <img src="https://win98icons.alexmeub.com/icons/png/key_win_alt-2.png" width="100">
+                    <div style="font-size: 13px;">
+                        <p style="margin-top:0;">Welcome back, <strong>Dan Lytle</strong></p>
+                        <p>Enter your network password to manage the 24/7 shop.</p>
+                        <input type="password" value="password" readonly style="width: 140px; border: 2px inset #fff;">
+                    </div>
+                </div>
+                <div style="text-align: right; margin-top: 15px;">
+                    <button onclick="document.getElementById('login-window').style.display='none'" style="padding: 3px 20px; cursor: pointer;">OK</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="win98-window" id="game-window" style="display:none; width: 250px; top: 20%; left: 40%;">
+            <div class="title-bar"><span>Minesweeper</span></div>
+            <div class="content" style="background: #c0c0c0; text-align: center; border: none; padding: 10px;">
+                <div style="margin-bottom: 10px; border: 2px inset #fff; padding: 5px; background: #bdbdbd; display: flex; justify-content: space-between; align-items: center;">
+                    <span style="color: red; background: black; padding: 2px; font-family: monospace;">010</span>
+                    <button onclick="initMinesweeper()" style="width: 25px; height: 25px; padding: 0;">😊</button>
+                    <span style="color: red; background: black; padding: 2px; font-family: monospace;">000</span>
+                </div>
+                <div id="mine-grid" style="display: grid; grid-template-columns: repeat(10, 20px); gap: 1px; justify-content: center; background: #808080; border: 2px inset #fff; padding: 2px;"></div>
+            </div>
+        </div>
+
+        <div class="win98-window" id="about-window" style="display:none; width: 480px; top: 15%; left: 25%;">
+            <div class="title-bar"><span>C:\SYSTEM\NOSTALGIA.TXT</span></div>
+            <div class="content">
+                <h3 style="margin-top:0;">The IT Manager's Manifesto</h3>
+                <p>I manage 24/7 industrial shops and high-uptime environments now, but this era is where the passion for technology actually started.</p>
+                <p>I miss the tactile, 3D design of <strong>Windows 98</strong> and the optimistic, glassy skeuomorphism of the <strong>Frutiger Aero</strong> era. Before everything became "flat" and minimal, tech felt like it had texture, weight, and personality.</p>
+                <p>This page is a tribute to that era! Startup sounds, dial-up dreams, and the feeling that the future was going to look like glass and water.</p>
+                <hr>
+                <button onclick="toggleWindow('about-window', event)" style="padding: 5px 15px; cursor: pointer;">Close</button>
+            </div>
+        </div>
+
+        <div class="win98-window" id="display-window" style="display:none; width: 350px; top: 15%; left: 35%;">
+            <div class="title-bar"><span>Display Properties</span></div>
+            <div class="content" style="background: #c0c0c0; border: none;">
+                <p style="margin-top:0; font-size: 12px;">Select a background for your desktop:</p>
+                <div style="background: white; border: 2px inset #fff; height: 150px; overflow-y: scroll; padding: 5px;">
+                    <div class="start-item" onclick="changeWallpaper('images/mystery.jpg')">(Default) Azul</div>
+                    <div class="start-item" onclick="changeWallpaper('images/spooky.jpg')">Mystery</div>
+                    <div class="start-item" onclick="changeWallpaper('images/bliss.jpg')">Bliss</div>
+                    <div class="start-item" onclick="changeWallpaper('images/dessert.jpg')">Desert</div>
+                </div>
+                <div style="text-align: right; margin-top: 15px;">
+                    <button onclick="toggleWindow('display-window', event)" style="padding: 3px 20px;">OK</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="taskbar">
+            <button onclick="toggleStart()" style="font-weight:bold; cursor: pointer;">Start</button>
+            <div id="task-list"></div>
+            <div id="clock" style="margin-right: 10px; font-size: 12px; border: 2px inset #fff; padding: 0 5px;">12:00 PM</div>
+        </div>
+
+        <div id="start-menu">
+            <div class="start-item" onclick="returnToModern()">🏠 Return to 2026</div>
+            <div class="start-item" onclick="toggleWindow('display-window', event)">🎨 Settings</div>
+            <div class="start-item" onclick="toggleWindow('game-window', event); initMinesweeper();">🕹️ Minesweeper</div>
+            <div class="start-item" onclick="toggleWindow('about-window', event)">📁 System Nostalgia</div>
+            <div class="start-item" onclick="triggerShutdown()">🏁 Shut Down...</div>
+        </div>
+    </div> 
 
     <div id="shutdown-screen">
         <h1 style="color: #666; font-family: 'Courier New', monospace;">It is now safe to turn off your computer.</h1>
         <p style="color: #333; font-family: 'Courier New', monospace;">Returning to 2026...</p>
     </div>
 
-    <div class="desktop-icons">
-        <div class="icon-unit" onclick="toggleWindow('about-window')">
-            <img src="https://win98icons.alexmeub.com/icons/png/computer_explorer-4.png" width="32"><br>My Computer
-        </div>
-        <div class="icon-unit" onclick="triggerShutdown()">
-            <img src="https://win98icons.alexmeub.com/icons/png/shut_down_normal-4.png" width="32"><br>Shut Down
-        </div>
-    </div>
-
-    <div class="win98-window" id="login-window" style="width: 380px;">
-        <div class="title-bar"><span>Windows Network Login</span></div>
-        <div class="content">
-            <div style="display: flex; gap: 15px;">
-                <img src="https://win98icons.alexmeub.com/icons/png/key_win_alt-2.png" width="100">
-                <div style="font-size: 13px;">
-                    <p style="margin-top:0;">Welcome back, <strong>Dan Lytle</strong></p>
-                    <p>Enter your network password to manage the 24/7 shop.</p>
-                    <input type="password" value="password" readonly style="width: 140px; border: 2px inset #fff;">
-                </div>
-            </div>
-            <div style="text-align: right; margin-top: 15px;">
-                <button onclick="document.getElementById('login-window').style.display='none'" style="padding: 3px 20px; cursor: pointer;">OK</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="win98-window" id="about-window" style="display:none; width: 480px; top: 15%; left: 25%;">
-        <div class="title-bar">
-            <span>C:\SYSTEM\NOSTALGIA.TXT</span>
-            <button class="close-btn" onclick="toggleWindow('about-window')">X</button>
-        </div>
-        <div class="content">
-            <h3 style="margin-top:0;">The IT Manager's Manifesto</h3>
-            <p>I manage 24/7 industrial shops and high-uptime environments now, but this era is where the passion for technology actually started.</p>
-            <p>I miss the tactile, 3D design of <strong>Windows 98</strong> and the optimistic, glassy skeuomorphism of the <strong>Frutiger Aero</strong> era. Before everything became "flat" and minimal, tech felt like it had texture, weight, and personality.</p>
-            <p>This page is a tribute to that era! Startup sounds, dial-up dreams, and the feeling that the future was going to look like glass and water.</p>
-            <hr>
-            <button onclick="toggleWindow('about-window')" style="padding: 5px 15px; cursor: pointer;">Close</button>
-        </div>
-    </div>
-
-    <div class="taskbar">
-        <button onclick="toggleStart()" style="font-weight:bold; cursor: pointer;">
-            <img src="https://win98icons.alexmeub.com/icons/png/windows-0.png" width="16" style="vertical-align: middle;"> Start
-        </button>
-        <div id="clock" style="margin-right: 10px; font-size: 12px; border: 2px inset #fff; padding: 0 5px;">12:00 PM</div>
-    </div>
-
-    <div id="start-menu">
-        <div class="start-item" onclick="returnToModern()">🏠 Return to 2026</div>
-        <div class="start-item" onclick="toggleWindow('about-window')">📁 System Nostalgia</div>
-        <div class="start-item" onclick="triggerShutdown()">🏁 Shut Down...</div>
-    </div>
-
     <script>
-        function playStartup() {
-            document.getElementById('startup-audio').play();
-            document.body.onclick = null;
-        }
+        document.addEventListener("DOMContentLoaded", function() {
+            document.querySelectorAll('.win98-window').forEach(win => {
+                const bar = win.querySelector('.title-bar');
+                const titleText = bar.querySelector('span').innerText;
+                bar.innerHTML = `<span>${titleText}</span>
+                    <div class="title-bar-controls">
+                        <button class="minimize-btn" onclick="toggleWindow('${win.id}', event)">_</button>
+                        <button class="close-btn" onclick="toggleWindow('${win.id}', event)">x</button>
+                    </div>`;
+            });
+        });
 
-        function toggleStart() {
-            const m = document.getElementById('start-menu');
-            m.style.display = (m.style.display === 'block') ? 'none' : 'block';
-        }
+				function toggleWindow(id, e) {
+			const win = document.getElementById(id);
+			const taskList = document.getElementById('task-list');
+			let tab = document.getElementById('tab-' + id);
 
-        // Fixed Toggle Logic: Now checks if display is 'none' or 'block' to switch correctly
-        function toggleWindow(id) {
-            const win = document.getElementById(id);
-            if (win.style.display === 'none' || win.style.display === '') {
-                win.style.display = 'block';
-            } else {
-                win.style.display = 'none';
+			const target = e ? e.target : null;
+			
+			// Check if the clicked element is the 'X' button OR a button that says 'Close' or 'OK'
+			const isCloseAction = target && (
+				target.classList.contains('close-btn') || 
+				target.innerText === 'x' || 
+				target.innerText === 'Close' || 
+				target.innerText === 'OK'
+			);
+
+			// 1. FULL CLOSE: Hide window AND delete taskbar tab
+			if (isCloseAction) {
+				win.style.display = 'none';
+				if (tab) tab.remove();
+				return; 
+			}
+
+			// 2. MINIMIZE/OPEN: Toggle visibility and keep the tab
+			if (win.style.display === 'none' || win.style.display === '') {
+				win.style.display = 'block';
+				win.style.zIndex = "1000";
+				if (!tab) {
+					tab = document.createElement('button');
+					tab.id = 'tab-' + id;
+					tab.className = 'task-tab';
+					tab.innerText = win.querySelector('.title-bar span').innerText;
+					tab.onclick = (event) => toggleWindow(id, event);
+					taskList.appendChild(tab);
+				}
+				tab.style.borderStyle = "inset";
+				tab.style.backgroundColor = "#e0e0e0";
+			} else {
+				win.style.display = 'none';
+				if (tab) {
+					tab.style.borderStyle = "outset";
+					tab.style.backgroundColor = "#c0c0c0";
+				}
+			}
+			document.getElementById('start-menu').style.display = 'none';
+		}
+
+        function initMinesweeper() {
+            const grid = document.getElementById('mine-grid');
+            grid.innerHTML = '';
+            for (let i = 0; i < 100; i++) {
+                const cell = document.createElement('div');
+                cell.style.width = '20px'; cell.style.height = '20px';
+                cell.style.background = '#bdbdbd'; cell.style.border = '2px outset #fff';
+                cell.onclick = function() {
+                    this.style.background = '#d1d1d1';
+                    if (Math.random() < 0.15) { this.innerHTML = '💣'; this.style.background = 'red'; }
+                    else { this.innerHTML = '1'; }
+                };
+                grid.appendChild(cell);
             }
-            document.getElementById('start-menu').style.display = 'none';
+        }
+
+        function playStartup() { document.getElementById('startup-audio').play().catch(e=>{}); document.body.onclick = null; }
+        function toggleStart() { const m = document.getElementById('start-menu'); m.style.display = (m.style.display === 'block') ? 'none' : 'block'; }
+        function changeWallpaper(path) { document.getElementById('desktop-wrapper').style.backgroundImage = "url('" + path + "')"; }
+
+        function triggerShutdown() {
+            const shutdownAudio = document.getElementById('shutdown-audio');
+            const shutdownScreen = document.getElementById('shutdown-screen');
+            const wrapper = document.getElementById('desktop-wrapper');
+            if (shutdownAudio) shutdownAudio.play().catch(e => {});
+            wrapper.style.filter = "grayscale(100%) brightness(0%)";
+            wrapper.style.opacity = "0";
+            setTimeout(() => {
+                shutdownScreen.style.display = 'flex';
+                setTimeout(() => { window.location.href = 'index.html'; }, 2000);
+            }, 1500); 
         }
 
         function returnToModern() {
-        console.log("Shutdown sequence initiated..."); // Check your browser console (F12) to see if this triggers
-        const audio = document.getElementById('shutdown-audio');
-    
-        // Play the sound
-        if (audio) {
-            audio.play().catch(e => console.log("Audio play failed:", e));
-        }
+			const shutdownAudio = document.getElementById('shutdown-audio');
+			const wrapper = document.getElementById('desktop-wrapper');
 
-        // Visual fade out
-        document.body.style.transition = "filter 2s";
-        document.body.style.filter = "brightness(0%)";
+			// 1. Play the shutdown sound immediately
+			if (shutdownAudio) {
+				shutdownAudio.play().catch(e => console.log("Audio play blocked: ", e));
+			}
 
-        // The Redirect - Ensure 'index.html' is lowercase and in the same folder
-        setTimeout(function() {
-            console.log("Redirecting to index.html...");
-            window.location.href = 'index.html'; 
-            }, 2500); // 2.5 seconds to be safe
-        }
+			// 2. Trigger the 2-second CSS fade and grayscale
+			// This matches the 2s transition you defined in your <style> block
+			wrapper.style.filter = "grayscale(100%) brightness(0%)";
+			wrapper.style.opacity = "0";
+
+			// 3. Wait 2 seconds (2000ms) for the fade to finish before redirecting
+			setTimeout(() => { 
+				window.location.href = 'index.html'; 
+			}, 2000); 
+		}
         
+        function updateClock() { document.getElementById('clock').textContent = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }); }
+        setInterval(updateClock, 1000); updateClock();
 
-        function triggerShutdown() {
-            document.getElementById('shutdown-audio').play();
-            document.body.style.filter = "grayscale(100%) brightness(20%)";
-            
-            setTimeout(() => {
-                document.getElementById('shutdown-screen').style.display = 'flex';
-                // Automated redirect after 4 seconds
-                setTimeout(() => {
-                    window.location.href = 'index.html';
-                }, 1000);
-            }, 2500);
-        }
-
-        function updateClock() {
-            document.getElementById('clock').textContent = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-        }
-        setInterval(updateClock, 1000);
-        updateClock();
+        document.querySelectorAll('.win98-window').forEach(windowEl => {
+            const titleBar = windowEl.querySelector('.title-bar');
+            let isDragging = false; let offset = { x: 0, y: 0 };
+            titleBar.addEventListener('mousedown', (e) => {
+                if(e.target.tagName === 'BUTTON') return;
+                isDragging = true;
+                offset.x = e.clientX - windowEl.offsetLeft;
+                offset.y = e.clientY - windowEl.offsetTop;
+            });
+            document.addEventListener('mousemove', (e) => {
+                if (!isDragging) return;
+                windowEl.style.left = (e.clientX - offset.x) + 'px';
+                windowEl.style.top = (e.clientY - offset.y) + 'px';
+            });
+            document.addEventListener('mouseup', () => isDragging = false);
+        });
     </script>
 </body>
 </html>
