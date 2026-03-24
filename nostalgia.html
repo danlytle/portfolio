@@ -140,7 +140,7 @@
     </div>
 
     <div id="start-menu">
-        <div class="start-item" onclick="location.href='index.html'">🏠 Return to 2026</div>
+        <div class="start-item" onclick="returnToModern()">🏠 Return to 2026</div>
         <div class="start-item" onclick="toggleWindow('about-window')">📁 System Nostalgia</div>
         <div class="start-item" onclick="triggerShutdown()">🏁 Shut Down...</div>
     </div>
@@ -166,6 +166,24 @@
             }
             document.getElementById('start-menu').style.display = 'none';
         }
+
+        function returnToModern() {
+            // 1. Play the XP Shutdown sound
+            const audio = document.getElementById('shutdown-audio');
+            if (audio) {
+            audio.play();
+        }
+
+            // 2. Optional: Add a quick fade out effect for "pizzazz"
+            document.body.style.transition = "filter 2s";
+            document.body.style.filter = "brightness(0%)";
+
+            // 3. Wait 2.5 seconds (length of the XP sound) then redirect
+            setTimeout(() => {
+            window.location.href = 'index.html';
+            }, 2500); 
+        }
+        
 
         function triggerShutdown() {
             document.getElementById('shutdown-audio').play();
