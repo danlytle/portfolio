@@ -1,0 +1,190 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dan's Windows 98 - Neon Edition</title>
+    <style>
+        body {
+            background: #008080 url('images/mystery.jpg') no-repeat center center fixed; 
+            background-size: cover;
+            font-family: "Tahoma", sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            transition: filter 2s ease-in-out;
+        }
+
+        /* --- GLOBAL NEON GLOW FOR ALL WINDOWS --- */
+        @keyframes neon-pulse {
+            0% { border-color: #ff00ff; box-shadow: 0 0 15px #ff00ff; }
+            50% { border-color: #00ffff; box-shadow: 0 0 30px #00ffff; }
+            100% { border-color: #ff00ff; box-shadow: 0 0 15px #ff00ff; }
+        }
+
+        .win98-window {
+            background-color: #c0c0c0;
+            border: 3px solid #ff00ff;
+            animation: neon-pulse 3s infinite;
+            padding: 2px;
+            position: absolute;
+            z-index: 100;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.5);
+        }
+
+        /* Shutdown Overlay */
+        #shutdown-screen {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: black;
+            z-index: 9999;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .title-bar {
+            background: linear-gradient(90deg, #000080, #1084d0);
+            padding: 3px 10px;
+            color: white;
+            font-weight: bold;
+            font-size: 13px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .close-btn { background: #c0c0c0; border: 1px solid #000; font-size: 10px; cursor: pointer; padding: 0 3px; }
+
+        .content { background: #fff; border: 1px solid #808080; margin: 2px; padding: 25px; color: #000; max-height: 400px; overflow-y: auto; }
+
+        /* Taskbar & Start */
+        .taskbar {
+            position: fixed; bottom: 0; left: 0; width: 100%; height: 30px;
+            background: #c0c0c0; border-top: 2px solid #fff; z-index: 1000;
+            display: flex; justify-content: space-between; align-items: center; padding: 0 5px;
+        }
+
+        #start-menu {
+            display: none; position: fixed; bottom: 30px; left: 0;
+            width: 200px; background: #c0c0c0; border: 2px solid #fff; z-index: 1001;
+        }
+
+        .start-item { padding: 10px; cursor: pointer; font-size: 12px; color: black; text-decoration: none; display: block; }
+        .start-item:hover { background: #000080; color: white; }
+
+        .desktop-icons { position: absolute; top: 20px; left: 20px; display: flex; flex-direction: column; gap: 25px; }
+        .icon-unit { width: 75px; text-align: center; color: white; font-size: 11px; text-shadow: 1px 1px #000; cursor: pointer; }
+    </style>
+</head>
+<body onclick="playStartup()">
+
+    <audio id="startup-audio" src="audio/win98.mp3"></audio>
+    <audio id="shutdown-audio" src="audio/winxp.mp3"></audio>
+
+    <div id="shutdown-screen">
+        <h1 style="color: #666; font-family: 'Courier New', monospace;">It is now safe to turn off your computer.</h1>
+        <p style="color: #333; font-family: 'Courier New', monospace;">Returning to 2026...</p>
+    </div>
+
+    <div class="desktop-icons">
+        <div class="icon-unit" onclick="toggleWindow('about-window')">
+            <img src="https://win98icons.alexmeub.com/icons/png/computer_explorer-4.png" width="32"><br>My Computer
+        </div>
+        <div class="icon-unit" onclick="triggerShutdown()">
+            <img src="https://win98icons.alexmeub.com/icons/png/shut_down_normal-4.png" width="32"><br>Shut Down
+        </div>
+    </div>
+
+    <div class="win98-window" id="login-window" style="width: 380px;">
+        <div class="title-bar"><span>Windows Network Login</span></div>
+        <div class="content">
+            <div style="display: flex; gap: 15px;">
+                <img src="https://win98icons.alexmeub.com/icons/png/key_win_alt-2.png" width="100">
+                <div style="font-size: 13px;">
+                    <p style="margin-top:0;">Welcome back, <strong>Dan Lytle</strong></p>
+                    <p>Enter your network password to manage the 24/7 shop.</p>
+                    <input type="password" value="password" readonly style="width: 140px; border: 2px inset #fff;">
+                </div>
+            </div>
+            <div style="text-align: right; margin-top: 15px;">
+                <button onclick="document.getElementById('login-window').style.display='none'" style="padding: 3px 20px; cursor: pointer;">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="win98-window" id="about-window" style="display:none; width: 480px; top: 15%; left: 25%;">
+        <div class="title-bar">
+            <span>C:\SYSTEM\NOSTALGIA.TXT</span>
+            <button class="close-btn" onclick="toggleWindow('about-window')">X</button>
+        </div>
+        <div class="content">
+            <h3 style="margin-top:0;">The IT Manager's Manifesto</h3>
+            <p>I manage 24/7 industrial shops and high-uptime environments now, but this era is where the passion for technology actually started.</p>
+            <p>I miss the tactile, 3D design of <strong>Windows 98</strong> and the optimistic, glassy skeuomorphism of the <strong>Frutiger Aero</strong> era. Before everything became "flat" and minimal, tech felt like it had texture, weight, and personality.</p>
+            <p>This page is a tribute to that era! Startup sounds, dial-up dreams, and the feeling that the future was going to look like glass and water.</p>
+            <hr>
+            <button onclick="toggleWindow('about-window')" style="padding: 5px 15px; cursor: pointer;">Close</button>
+        </div>
+    </div>
+
+    <div class="taskbar">
+        <button onclick="toggleStart()" style="font-weight:bold; cursor: pointer;">
+            <img src="https://win98icons.alexmeub.com/icons/png/windows-0.png" width="16" style="vertical-align: middle;"> Start
+        </button>
+        <div id="clock" style="margin-right: 10px; font-size: 12px; border: 2px inset #fff; padding: 0 5px;">12:00 PM</div>
+    </div>
+
+    <div id="start-menu">
+        <div class="start-item" onclick="location.href='index.html'">🏠 Return to 2026</div>
+        <div class="start-item" onclick="toggleWindow('about-window')">📁 System Nostalgia</div>
+        <div class="start-item" onclick="triggerShutdown()">🏁 Shut Down...</div>
+    </div>
+
+    <script>
+        function playStartup() {
+            document.getElementById('startup-audio').play();
+            document.body.onclick = null;
+        }
+
+        function toggleStart() {
+            const m = document.getElementById('start-menu');
+            m.style.display = (m.style.display === 'block') ? 'none' : 'block';
+        }
+
+        // Fixed Toggle Logic: Now checks if display is 'none' or 'block' to switch correctly
+        function toggleWindow(id) {
+            const win = document.getElementById(id);
+            if (win.style.display === 'none' || win.style.display === '') {
+                win.style.display = 'block';
+            } else {
+                win.style.display = 'none';
+            }
+            document.getElementById('start-menu').style.display = 'none';
+        }
+
+        function triggerShutdown() {
+            document.getElementById('shutdown-audio').play();
+            document.body.style.filter = "grayscale(100%) brightness(20%)";
+            
+            setTimeout(() => {
+                document.getElementById('shutdown-screen').style.display = 'flex';
+                // Automated redirect after 4 seconds
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 1000);
+            }, 2500);
+        }
+
+        function updateClock() {
+            document.getElementById('clock').textContent = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+    </script>
+</body>
+</html>
