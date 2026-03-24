@@ -67,15 +67,36 @@ span.highlight { background-color: #ffffd0; }
 .neon-link:hover { border: 1px dashed #666; background: rgba(0, 0, 0, 0.05); border-radius: 4px; }
 
 /* --- 4. STRUCTURAL FIXES FOR WIN98 DESKTOP --- */
+/* 1. Let the body handle the scrolling and the black "chassis" */
+/* --- 4. STRUCTURAL FIXES (UPDATED) --- */
+
+/* Normal behavior for index.html */
 body {
-  margin: 0; padding: 0; overflow: hidden;
+    margin: 0;
+    padding: 0;
+    background: #ffffff !important; /* Force the main page to be white */
+    font-family: 'Lato', Verdana, Helvetica, sans-serif;
+    min-height: 100vh;
+    overflow-y: auto !important; /* Force scrolling to work */
+    overflow-x: hidden;
+}
+
+/* Specific behavior for the Nostalgia page ONLY */
+/* This kicks in only when it finds the desktop-wrapper ID */
+body:has(#desktop-wrapper) {
+    background: #008080 !important; 
+    overflow: hidden; /* Desktop shouldn't scroll the whole page */
 }
 
 #desktop-wrapper {
-    background-color: #000 !important;
-    position: relative;
+    position: fixed; /* Fix it to the screen */
+    top: 0;
+    left: 0;
+    width: 100%;
     height: 100vh;
-    width: 100vw;
+    background: #008080 url('images/mystery.jpg') no-repeat center center fixed;
+    background-size: cover;
+    z-index: 1;
     overflow: hidden;
 }
 
