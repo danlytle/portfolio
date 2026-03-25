@@ -113,6 +113,7 @@
     <div id="desktop-wrapper">
         <audio id="startup-audio" src="audio/win98.mp3"></audio>
         <audio id="shutdown-audio" src="audio/winxp.mp3"></audio>
+		<audio id="lofi-audio" src="audio/lofi.mp3"></audio>
 
         <div class="desktop-icons">
             <div class="icon-unit" onclick="toggleWindow('about-window', event)">
@@ -124,9 +125,36 @@
             <div class="icon-unit" onclick="toggleWindow('game-window', event); initMinesweeper();">
                 <img src="https://win98icons.alexmeub.com/icons/png/minesweeper-0.png" width="32"><br>Minesweeper
             </div>
+			<div class="icon-unit" onclick="toggleWindow('network-window', event)">
+				<img src="https://win98icons.alexmeub.com/icons/png/network_internet_pcs_installer-2.png" width="32"><br>Network Neighborhood
+			</div>
+			<div class="icon-unit" onclick="toggleWindow('monitor-window', event)">
+				<img src="https://win98icons.alexmeub.com/icons/png/directory_admin_tools-4.png" width="32"><br>System Monitor
+			</div>
+			<div class="icon-unit" onclick="toggleWindow('programs-window', event)">
+				<img src="https://win98icons.alexmeub.com/icons/png/appwizard-4.png" width="32"><br>Add/Remove Programs
+			</div>
+			<div class="icon-unit" onclick="toggleWindow('regedit-window', event)">
+				<img src="https://win98icons.alexmeub.com/icons/png/regedit-0.png" width="32"><br>Registry Editor
+			</div>
+			<div class="icon-unit" onclick="toggleWindow('dos-window', event)">
+				<img src="https://win98icons.alexmeub.com/icons/png/ms_dos-0.png" width="32"><br>MS-DOS Prompt
+			</div>
+			<div class="icon-unit" onclick="toggleWindow('saver-settings-window', event)">
+				<img src="https://win98icons.alexmeub.com/icons/png/computer_2-5.png" width="32"><br>Screen Saver
+			</div>
+			<div class="icon-unit" onclick="toggleWindow('lytle-amp', event)">
+				<img src="https://win98icons.alexmeub.com/icons/png/cd_audio_cd_a-4.png" width="32"><br>Lytle-Amp
+			</div>
+			<div class="icon-unit" onclick="toggleWindow('bug-bash', event)">
+				<img src="https://win98icons.alexmeub.com/icons/png/msagent-4.png" width="32"><br>BugBash
+			</div>
             <div class="icon-unit" onclick="triggerShutdown()">
                 <img src="https://win98icons.alexmeub.com/icons/png/shut_down_normal-4.png" width="32"><br>Shut Down
             </div>
+			<div class="icon-unit" onclick="toggleWindow('trash-window', event)">
+				<img src="https://win98icons.alexmeub.com/icons/png/recycle_bin_full-4.png" width="32"><br>Recycle Bin
+			</div>
         </div>
 
         <div class="win98-window" id="login-window" style="width: 380px; top: 30%; left: 35%;">
@@ -186,6 +214,436 @@
             </div>
         </div>
 
+		<div class="win98-window" id="network-window" style="display:none; width: 450px; top: 10%; left: 15%;">
+			<div class="title-bar"><span>Network Neighborhood</span></div>
+			
+			<div style="display: flex; gap: 10px; padding: 2px 10px; font-size: 11px; border-bottom: 1px solid #808080;">
+				<span>File</span> <span>Edit</span> <span>View</span> <span>Go</span> <span>Favorites</span> <span>Help</span>
+			</div>
+
+			<div style="background: #eee; padding: 3px; display: flex; align-items: center; gap: 5px; border-bottom: 2px inset #fff;">
+				<span style="font-size: 11px; color: #666;">Address</span>
+				<div style="background: white; border: 1px solid #808080; flex-grow: 1; padding: 2px 5px; font-size: 12px;">
+					\\DL-SVR-DC01\DL-Infrastructure
+				</div>
+			</div>
+
+			<div class="content" style="height: 250px; background: white; display: grid; grid-template-columns: repeat(auto-fill, 100px); gap: 20px; padding: 20px;">
+				
+				<div class="icon-unit" style="color: black; text-shadow: none;" onclick="window.open('https://www.linkedin.com/in/dan-lytle/', '_blank')">
+					<img src="https://win98icons.alexmeub.com/icons/png/network_drive-2.png" width="32"><br>
+					<span style="font-size: 11px;">LinkedIn_SRV</span>
+				</div>
+
+				<div class="icon-unit" style="color: black; text-shadow: none;" onclick="window.open('https://github.com/danlytle', '_blank')">
+					<img src="https://win98icons.alexmeub.com/icons/png/network_drive-2.png" width="32"><br>
+					<span style="font-size: 11px;">GitHub_REPO</span>
+				</div>
+
+				<div class="icon-unit" style="color: black; text-shadow: none;" onclick="window.open('https://www.yorku.ca/', '_blank')">
+					<img src="https://win98icons.alexmeub.com/icons/png/internet_connection_wiz-2.png" width="32"><br>
+					<span style="font-size: 11px;">YorkU_Node</span>
+				</div>
+
+				<div class="icon-unit" style="color: black; text-shadow: none;" onclick="window.open('https://www.google.com/', '_blank')">
+					<img src="https://win98icons.alexmeub.com/icons/png/globe_map-0.png" width="32"><br>
+					<span style="font-size: 11px;">Entire Network</span>
+				</div>
+
+			</div>
+
+			<div style="background: #c0c0c0; padding: 2px 5px; font-size: 11px; border-top: 1px solid #808080;">
+				4 object(s)
+			</div>
+		</div>
+		
+		<div class="win98-window" id="monitor-window" style="display:none; width: 400px; top: 20%; left: 30%;">
+			<div class="title-bar"><span>System Monitor - [Active Stats]</span></div>
+			
+			<div class="content" style="background: #000; color: #39ff14; font-family: 'Courier New', monospace; padding: 15px;">
+				<div style="margin-bottom: 10px; border-bottom: 1px solid #333; padding-bottom: 5px;">
+					<strong>Node:</strong> STEELCON-MGR-01<br>
+					<strong>Uptime:</strong> <span id="uptime-clock">0d 0h 0m 0s</span>
+				</div>
+
+				<div style="margin-bottom: 15px;">
+					<div style="display: flex; justify-content: space-between; font-size: 12px;">
+						<span>Azure (AZ-104) Utilization</span>
+						<span>94%</span>
+					</div>
+					<div style="width: 100%; height: 10px; border: 1px solid #39ff14; margin-top: 4px;">
+						<div style="width: 94%; height: 100%; background: #39ff14; box-shadow: 0 0 10px #39ff14;"></div>
+					</div>
+				</div>
+
+				<div style="margin-bottom: 15px;">
+					<div style="display: flex; justify-content: space-between; font-size: 12px;">
+						<span>Firewall Throughput (CCSE)</span>
+						<span>547.47 Mbps</span>
+					</div>
+					<div style="width: 100%; height: 10px; border: 1px solid #39ff14; margin-top: 4px;">
+						<div style="width: 88%; height: 100%; background: #39ff14; box-shadow: 0 0 10px #39ff14;"></div>
+					</div>
+				</div>
+
+				<div style="margin-bottom: 15px;">
+					<div style="display: flex; justify-content: space-between; font-size: 12px;">
+						<span>MySQL Buffer Pool Efficiency</span>
+						<span>9.5 / 10</span>
+					</div>
+					<div style="width: 100%; height: 10px; border: 1px solid #39ff14; margin-top: 4px;">
+						<div style="width: 95%; height: 100%; background: #39ff14; box-shadow: 0 0 10px #39ff14;"></div>
+					</div>
+				</div>
+
+				<div style="font-size: 10px; color: #1a7a0b; margin-top: 10px; text-align: center;">
+					SCANNING FOR VULNERABILITIES... [OK]
+				</div>
+			</div>
+
+			<div style="background: #c0c0c0; padding: 2px 5px; font-size: 11px; border-top: 1px solid #808080;">
+				Kernel Version: 6.0.2026-Lytle
+			</div>
+		</div>
+		
+		<div class="win98-window" id="programs-window" style="display:none; width: 500px; top: 15%; left: 20%;">
+			<div class="title-bar"><span>Add/Remove Programs Properties</span></div>
+			
+			<div style="padding: 10px; background: #c0c0c0; border-bottom: 1px solid #808080; font-size: 11px;">
+				To remove a career milestone or change its installed components, select it from the list and click Add/Remove.
+			</div>
+
+			<div class="content" style="background: #fff; height: 300px; padding: 10px; display: flex; flex-direction: column;">
+				<p style="font-size: 11px; margin-bottom: 5px;">The following software/roles are currently installed:</p>
+				
+				<div style="border: 2px inset #fff; background: white; flex-grow: 1; overflow-y: auto; padding: 2px;">
+					<div class="program-entry" onclick="selectProgram(this, 'Steelcon Group', 'Information Technology Manager', '2026-Present', 'Leading enterprise IT strategy, infrastructure, and high-uptime operations for industrial systems.')" 
+						 style="padding: 2px 5px; cursor: pointer; font-size: 12px; display: flex; align-items: center; gap: 5px;">
+						<img src="https://win98icons.alexmeub.com/icons/png/msagent-2.png" width="16"> Steelcon IT Management Suite
+					</div>
+
+					<div class="program-entry" onclick="selectProgram(this, 'EKHO Infrastructure', 'Senior Information Systems Specialist', '2024-2026', 'Spearheaded SASE deployment (Perimeter 81) and implemented robust security frameworks.')" 
+						 style="padding: 2px 5px; cursor: pointer; font-size: 12px; display: flex; align-items: center; gap: 5px;">
+						<img src="https://win98icons.alexmeub.com/icons/png/network_normal_two_pcs-2.png" width="16"> EKHO Infrastructure Solutions
+					</div>
+
+					<div class="program-entry" onclick="selectProgram(this, 'Haycor Computer Solutions', 'Senior IT Analyst', '2023-2024', 'Administered VMware/Azure platforms and led advanced email security deployments.')" 
+						 style="padding: 2px 5px; cursor: pointer; font-size: 12px; display: flex; align-items: center; gap: 5px;">
+						<img src="https://win98icons.alexmeub.com/icons/png/server_gear-0.png" width="16"> Haycor Systems Analyst Pro
+					</div>
+
+					<div class="program-entry" onclick="selectProgram(this, 'Key 2 Group', 'Senior Support Specialist', '2019-2023', 'Managed Windows Server environments (AD/DNS) and oversaw BCDR operations.')" 
+						 style="padding: 2px 5px; cursor: pointer; font-size: 12px; display: flex; align-items: center; gap: 5px;">
+						<img src="https://win98icons.alexmeub.com/icons/png/laptop_infrared_2-4.png" width="16"> Key 2 Support & Operations
+					</div>
+				</div>
+
+				<div id="program-details" style="margin-top: 10px; height: 80px; border: 1px solid #808080; padding: 5px; background: #eee; font-size: 11px;">
+					Select a role to see job duties and deployment details.
+				</div>
+
+				<div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 10px;">
+					<button disabled style="padding: 2px 15px;">Add/Remove...</button>
+				</div>
+			</div>
+		</div>
+
+		<div class="win98-window" id="regedit-window" style="display:none; width: 600px; top: 5%; left: 10%; z-index: 200;">
+			<div class="title-bar"><span>Registry Editor</span></div>
+			
+			<div style="display: flex; gap: 10px; padding: 2px 10px; font-size: 11px; border-bottom: 1px solid #808080; background: #c0c0c0;">
+				<span>Registry</span> <span>Edit</span> <span>View</span> <span>Favorites</span> <span>Help</span>
+			</div>
+
+			<div class="content" style="height: 350px; background: white; display: flex; padding: 0; overflow: hidden;">
+				
+				<div style="width: 200px; border-right: 2px inset #fff; padding: 5px; overflow-y: auto; font-size: 12px; background: #fff;">
+					<div style="display: flex; align-items: center; gap: 5px; margin-bottom: 5px;">
+						<img src="https://win98icons.alexmeub.com/icons/png/directory_closed-0.png" width="16"> My Computer
+					</div>
+					<div style="margin-left: 15px;">
+						<div style="display: flex; align-items: center; gap: 5px; margin-bottom: 2px;">
+							<img src="https://win98icons.alexmeub.com/icons/png/directory_open_cool-0.png" width="16"> HKEY_LOCAL_MACHINE
+						</div>
+						<div style="margin-left: 15px;">
+							<div style="display: flex; align-items: center; gap: 5px; margin-bottom: 2px;">
+								<img src="https://win98icons.alexmeub.com/icons/png/directory_open_cool-0.png" width="16"> SOFTWARE
+							</div>
+							<div style="margin-left: 15px;">
+								<div style="display: flex; align-items: center; gap: 5px; color: #000080; font-weight: bold; background: #c0c0c0; padding: 1px 3px;">
+									<img src="https://win98icons.alexmeub.com/icons/png/directory_open_cool-0.png" width="16"> Dan_Lytle_Certs
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div style="flex-grow: 1; overflow-y: auto; font-family: 'MS Sans Serif', sans-serif; font-size: 11px;">
+					<table style="width: 100%; border-collapse: collapse; text-align: left;">
+						<thead style="background: #eee; position: sticky; top: 0; border-bottom: 1px solid #808080;">
+							<tr>
+								<th style="padding: 2px 5px; border-right: 1px solid #ccc; font-weight: normal;">Name</th>
+								<th style="padding: 2px 5px; border-right: 1px solid #ccc; font-weight: normal;">Type</th>
+								<th style="padding: 2px 5px; font-weight: normal;">Data</th>
+							</tr>
+						</thead>
+						<tbody id="reg-values">
+							<tr>
+								<td style="padding: 2px 5px;"><img src="https://win98icons.alexmeub.com/icons/png/msg_information-0.png" width="12"> (Default)</td>
+								<td style="padding: 2px 5px;">REG_SZ</td>
+								<td style="padding: 2px 5px;">(value not set)</td>
+							</tr>
+							<tr>
+								<td style="padding: 2px 5px;"><img src="https://win98icons.alexmeub.com/icons/png/msg_information-0.png" width="12"> CCSE_R81</td>
+								<td style="padding: 2px 5px;">REG_BINARY</td>
+								<td style="padding: 2px 5px;">Check Point Certified Security Expert</td>
+							</tr>
+							<tr>
+								<td style="padding: 2px 5px;"><img src="https://win98icons.alexmeub.com/icons/png/msg_information-0.png" width="12"> CCSA_R81</td>
+								<td style="padding: 2px 5px;">REG_BINARY</td>
+								<td style="padding: 2px 5px;">Check Point Certified Security Administrator</td>
+							</tr>
+							<tr>
+								<td style="padding: 2px 5px;"><img src="https://win98icons.alexmeub.com/icons/png/msg_information-0.png" width="12"> AZ-104</td>
+								<td style="padding: 2px 5px;">REG_DWORD</td>
+								<td style="padding: 2px 5px;">Azure Administrator Associate</td>
+							</tr>
+							<tr>
+								<td style="padding: 2px 5px;"><img src="https://win98icons.alexmeub.com/icons/png/msg_information-0.png" width="12"> NSE_4</td>
+								<td style="padding: 2px 5px;">REG_SZ</td>
+								<td style="padding: 2px 5px;">Network Security Professional</td>
+							</tr>
+							<tr>
+								<td style="padding: 2px 5px;"><img src="https://win98icons.alexmeub.com/icons/png/msg_information-0.png" width="12"> BCDR_PSA</td>
+								<td style="padding: 2px 5px;">REG_SZ</td>
+								<td style="padding: 2px 5px;">Datto Networking & Continuity Expert</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+			<div style="background: #c0c0c0; padding: 2px 5px; font-size: 11px; border-top: 1px solid #808080;">
+				My Computer\HKEY_LOCAL_MACHINE\SOFTWARE\Dan_Lytle_Certs
+			</div>
+		</div>
+
+		<div class="win98-window" id="trash-window" style="display:none; width: 500px; top: 25%; left: 25%; z-index: 205;">
+			<div class="title-bar"><span>Recycle Bin</span></div>
+			
+			<div style="display: flex; gap: 10px; padding: 2px 10px; font-size: 11px; border-bottom: 1px solid #808080; background: #c0c0c0;">
+				<span>File</span> <span>Edit</span> <span>View</span> <span>Go</span> <span>Favorites</span> <span>Help</span>
+			</div>
+
+			<div class="content" style="height: 300px; background: white; padding: 0; overflow-y: auto;">
+				<table style="width: 100%; border-collapse: collapse; text-align: left; font-family: sans-serif; font-size: 11px;">
+					<thead style="background: #eee; position: sticky; top: 0; border-bottom: 1px solid #808080;">
+						<tr>
+							<th style="padding: 2px 5px; border-right: 1px solid #ccc; font-weight: normal;">Name</th>
+							<th style="padding: 2px 5px; border-right: 1px solid #ccc; font-weight: normal;">Original Location</th>
+							<th style="padding: 2px 5px; font-weight: normal;">Date Deleted</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr class="trash-item" style="cursor: default;">
+							<td style="padding: 5px;"><img src="https://win98icons.alexmeub.com/icons/png/msg_error-0.png" width="16" style="vertical-align: middle;"> Software_Handle_Leak.exe</td>
+							<td style="padding: 5px;">C:\Production\Services</td>
+							<td style="padding: 5px;">2026-03-15</td>
+						</tr>
+						<tr class="trash-item">
+							<td style="padding: 5px;"><img src="https://win98icons.alexmeub.com/icons/png/key_web-0.png" width="16" style="vertical-align: middle;"> Legacy_SMS_MFA.sys</td>
+							<td style="padding: 5px;">EntraID\AuthMethods</td>
+							<td style="padding: 5px;">2026-03-10</td>
+						</tr>
+						<tr class="trash-item">
+							<td style="padding: 5px;"><img src="https://win98icons.alexmeub.com/icons/png/network_hubs-0.png" width="16" style="vertical-align: middle;"> Unsecured_L2TP_VPN.net</td>
+							<td style="padding: 5px;">Firewall\Gateway</td>
+							<td style="padding: 5px;">2026-02-28</td>
+						</tr>
+						<tr class="trash-item">
+							<td style="padding: 5px;"><img src="https://win98icons.alexmeub.com/icons/png/users-0.png" width="16" style="vertical-align: middle;"> Manual_User_Setup.bat</td>
+							<td style="padding: 5px;">IT_Dept\Scripts</td>
+							<td style="padding: 5px;">2026-01-20</td>
+						</tr>
+						<tr class="trash-item">
+							<td style="padding: 5px;"><img src="https://win98icons.alexmeub.com/icons/png/hard_disk_drive-0.png" width="16" style="vertical-align: middle;"> MySQL_Disk_Table_Lag.log</td>
+							<td style="padding: 5px;">Prod_DB_01\Config</td>
+							<td style="padding: 5px;">2026-03-01</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<div style="background: #c0c0c0; padding: 2px 5px; font-size: 11px; border-top: 1px solid #808080; display: flex; justify-content: space-between;">
+				<span>5 object(s)</span>
+				<span>1.42 GB of technical debt recovered</span>
+			</div>
+		</div>
+
+		<div class="win98-window" id="dos-window" style="display:none; width: 500px; top: 15%; left: 20%; z-index: 210;">
+            <div class="title-bar"><span>MS-DOS Prompt</span></div>
+            <div class="content" id="dos-content" onclick="document.getElementById('dos-input').focus();" style="background: black; color: #c0c0c0; font-family: 'Courier New', monospace; height: 300px; padding: 10px; overflow-y: auto; font-size: 14px; border: 2px inset #fff; margin: 2px;">
+                <div id="dos-history">
+                    Microsoft(R) Windows 98<br>
+                    (C)Copyright Microsoft Corp 1981-1998.<br><br>
+                    C:\WINDOWS> TYPE HELP.TXT for a list of commands.<br>
+                </div>
+                <div style="display: flex; gap: 5px;">
+                    <span>C:\WINDOWS></span>
+                    <input type="text" id="dos-input" style="background: transparent; color: #c0c0c0; border: none; outline: none; font-family: 'Courier New', monospace; font-size: 14px; flex-grow: 1; padding: 0; margin: 0;">
+                </div>
+            </div>
+        </div>
+		
+		<div id="screensaver-overlay" onclick="stopScreenSaver()" style="display:none; position: fixed; top:0; left:0; width:100vw; height:100vh; background: black; z-index: 9999; cursor: none; overflow: hidden;">
+            <canvas id="canvas" style="display: block;"></canvas>
+        </div>
+
+		<div class="win98-window" id="saver-settings-window" style="display:none; width: 350px; top: 20%; left: 35%; z-index: 400;">
+			<div class="title-bar"><span>Screen Saver Settings</span></div>
+			
+			<div class="content" style="background: #c0c0c0; padding: 15px;">
+				<div style="background: #000; width: 100%; height: 120px; border: 4px inset #fff; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative;">
+					<div style="color: #39ff14; font-family: 'Courier New', monospace; font-size: 10px; text-align: center; line-height: 1.2;">
+						<div style="animation: previewScroll 3s linear infinite;">
+							AZURE<br>CCSE<br>MYSQL<br>POWERSHELL<br>BCDR
+						</div>
+					</div>
+				</div>
+
+				<fieldset style="border: 2px groove #fff; padding: 10px; font-size: 11px;">
+					<legend>Screen Saver</legend>
+					<select style="width: 100%; font-size: 11px; margin-bottom: 10px;">
+						<option>Lytle Technical Rain</option>
+						<option>3D Pipes (Coming Soon)</option>
+						<option>Starfield (In Development)</option>
+					</select>
+					
+					<div style="display: flex; align-items: center; gap: 5px;">
+						<span>Wait:</span>
+						<input type="number" value="1" style="width: 40px; font-size: 11px;">
+						<span>minutes</span>
+					</div>
+				</fieldset>
+
+				<div style="display: flex; justify-content: space-between; margin-top: 15px;">
+					<button onclick="startScreenSaver()" style="padding: 2px 12px; font-size: 11px;">Preview</button>
+					<div style="display: flex; gap: 5px;">
+						<button onclick="toggleWindow('saver-settings-window', event)" style="padding: 2px 12px; font-size: 11px;">OK</button>
+						<button onclick="toggleWindow('saver-settings-window', event)" style="padding: 2px 12px; font-size: 11px;">Cancel</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<style>
+		@keyframes previewScroll {
+			0% { transform: translateY(50px); opacity: 0; }
+			50% { opacity: 1; }
+			100% { transform: translateY(-50px); opacity: 0; }
+		}
+		
+		.amp-bar {
+			box-shadow: 0 0 8px currentColor; /* Automatically uses the bar's background color for the glow */
+		}
+		
+		/* This forces the animation to run only when the 'playing' class is present */
+		.playing .amp-bar {
+			animation: amp-bounce 0.5s ease-in-out infinite alternate !important;
+			animation-play-state: running !important;
+		}
+
+		@keyframes amp-bounce {
+			from { height: 20%; }
+			to { height: 95%; }
+		}
+		
+		.server-bug {
+			position: absolute;
+			font-size: 28px; /* Big enough to click */
+			cursor: pointer;
+			user-select: none;
+			text-shadow: 2px 2px 0px #000; /* Retro contrast shadow */
+		}
+
+		/* Specific animations for different 'bugs' */
+		.bug-spider { animation: bug-shake 0.2s infinite; }
+		.bug-worm   { animation: bug-pulse 0.8s infinite; }
+		.bug-glitch { animation: bug-glitch-flash 0.1s infinite; }
+		.bug-virus  { animation: bug-spin 1.5s infinite linear; }
+
+		@keyframes bug-glitch-flash {
+			0% { opacity: 1; transform: translateX(0); }
+			50% { opacity: 0.7; transform: translateX(2px); color: #ff0000; }
+			100% { opacity: 1; transform: translateX(0); }
+		}
+				
+		
+				
+		</style>
+		
+				<div class="win98-window" id="lytle-amp" style="display:none; width: 280px; top: 10%; left: 60%; z-index: 500; background: #c0c0c0; border: 3px solid #ff00ff;">
+			<div class="title-bar">
+				<span>Lytle-Amp 2.0</span>
+				<div class="title-bar-controls">
+					<button onclick="toggleWindow('lytle-amp', event)">x</button>
+				</div>
+			</div>
+			
+			<div style="background: #000 !important; padding: 15px; border: 2px inset #fff; height: 180px; display: block;">
+				
+				<div id="amp-viz-container" style="display: flex !important; align-items: flex-end !important; justify-content: space-between !important; height: 70px !important; width: 100% !important; background: #111 !important; border: 1px solid #333; padding: 5px; margin-bottom: 15px;">
+					<div class="amp-bar" style="width: 12px; height: 60%; background: #00ffff; border-top: 2px solid #fff; animation-delay: 0.1s; animation-duration: 0.4s !important;"></div>
+					<div class="amp-bar" style="width: 12px; height: 80%; background: #0080ff; border-top: 2px solid #fff; animation-delay: 0.3s; animation-duration: 0.6s !important;"></div>
+					
+					<div class="amp-bar" style="width: 12px; height: 40%; background: #39ff14; border-top: 2px solid #fff; animation-delay: 0.2s; animation-duration: 0.3s !important;"></div>
+					<div class="amp-bar" style="width: 12px; height: 95%; background: #ffff00; border-top: 2px solid #fff; animation-delay: 0.4s; animation-duration: 0.5s !important;"></div>
+					<div class="amp-bar" style="width: 12px; height: 50%; background: #ff8000; border-top: 2px solid #fff; animation-delay: 0.1s; animation-duration: 0.4s !important;"></div>
+					
+					<div class="amp-bar" style="width: 12px; height: 75%; background: #ff0000; border-top: 2px solid #fff; animation-delay: 0.3s; animation-duration: 0.2s !important;"></div>
+					<div class="amp-bar" style="width: 12px; height: 35%; background: #ff00ff; border-top: 2px solid #fff; animation-delay: 0.2s; animation-duration: 0.4s !important;"></div>
+				</div>
+
+				<div style="background: #052a05; border: 1px solid #004400; color: #39ff14; font-family: monospace; font-size: 10px; padding: 3px; margin-bottom: 10px; text-align: center;">
+					<marquee>Playing: IT-Manager-Lofi.wav</marquee>
+				</div>
+
+				<div style="display: flex; justify-content: center; gap: 5px;">
+					<button onclick="alert('Prev')" style="width: 45px; font-size: 9px; height: 20px;">PREV</button>
+					<button id="amp-play-pause" onclick="toggleAmpMusic()" style="width: 45px; font-size: 9px; height: 20px;">PLAY</button>
+					<button onclick="alert('Stop')" style="width: 45px; font-size: 9px; height: 20px;">STOP</button>
+				</div>
+			</div>
+		</div>
+				
+				
+		<div class="win98-window" id="bug-bash" style="display:none; width: 350px; top: 15%; left: 20%; z-index: 600;">
+			<div class="title-bar">
+				<span>Server BugBash v1.0</span>
+				<div class="title-bar-controls">
+					<button onclick="toggleWindow('bug-bash', event)">x</button>
+				</div>
+			</div>
+			<div class="content" style="background: #000; padding: 10px; position: relative; height: 300px; overflow: hidden; cursor: crosshair;">
+				<div style="display: flex; justify-content: space-between; color: #39ff14; font-family: monospace; font-size: 12px; margin-bottom: 10px;">
+					<div>BUGS PATCHED: <span id="bug-score">0</span></div>
+					<div style="width: 120px;">
+						LOAD: <div style="width: 100%; height: 8px; border: 1px solid #39ff14; display: inline-block;">
+							<div id="load-bar" style="width: 0%; height: 100%; background: #39ff14; transition: width 0.3s;"></div>
+						</div>
+					</div>
+				</div>
+
+				<div id="game-canvas" style="position: relative; width: 100%; height: 250px; background: #111; border: 2px inset #555;">
+					<div id="start-overlay" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; color: white;">
+						<button onclick="startBugBash()" style="padding: 10px 20px; font-weight: bold; cursor: pointer;">INITIALIZE BOOT SEQUENCE</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+
+
         <div class="taskbar">
             <button onclick="toggleStart()" style="font-weight:bold; cursor: pointer;">Start</button>
             <div id="task-list"></div>
@@ -197,9 +655,11 @@
             <div class="start-item" onclick="toggleWindow('display-window', event)">🎨 Settings</div>
             <div class="start-item" onclick="toggleWindow('game-window', event); initMinesweeper();">🕹️ Minesweeper</div>
             <div class="start-item" onclick="toggleWindow('about-window', event)">📁 System Nostalgia</div>
+			<a href="#" class="start-item" onclick="toggleWindow('lytle-amp', event)">🎵 Lytle-Amp 2.0</a>
+			<a href="#" class="start-item" onclick="toggleWindow('bug-bash', event)">👾 Server BugBash</a>
             <div class="start-item" onclick="triggerShutdown()">🏁 Shut Down...</div>
         </div>
-    </div> 
+    
 
     <div id="shutdown-screen">
         <h1 style="color: #666; font-family: 'Courier New', monospace;">It is now safe to turn off your computer.</h1>
@@ -231,7 +691,8 @@
 				target.classList.contains('close-btn') || 
 				target.innerText === 'x' || 
 				target.innerText === 'Close' || 
-				target.innerText === 'OK'
+				target.innerText === 'OK' ||
+				target.innerText === 'Cancel'
 			);
 
 			// 1. FULL CLOSE: Hide window AND delete taskbar tab
@@ -264,22 +725,121 @@
 			}
 			document.getElementById('start-menu').style.display = 'none';
 		}
+		
+		let mineField = [];
+		let gameOver = false;
 
         function initMinesweeper() {
-            const grid = document.getElementById('mine-grid');
-            grid.innerHTML = '';
-            for (let i = 0; i < 100; i++) {
-                const cell = document.createElement('div');
-                cell.style.width = '20px'; cell.style.height = '20px';
-                cell.style.background = '#bdbdbd'; cell.style.border = '2px outset #fff';
-                cell.onclick = function() {
-                    this.style.background = '#d1d1d1';
-                    if (Math.random() < 0.15) { this.innerHTML = '💣'; this.style.background = 'red'; }
-                    else { this.innerHTML = '1'; }
-                };
-                grid.appendChild(cell);
-            }
-        }
+			const grid = document.getElementById('mine-grid');
+			grid.innerHTML = '';
+			mineField = [];
+			gameOver = false;
+			const size = 10;
+			const bombCount = 15;
+
+			// 1. Initialize empty board
+			for (let i = 0; i < size * size; i++) {
+				mineField.push({ isBomb: false, revealed: false, count: 0 });
+			}
+
+			// 2. Place bombs randomly
+			let placed = 0;
+			while (placed < bombCount) {
+				let idx = Math.floor(Math.random() * (size * size));
+				if (!mineField[idx].isBomb) {
+					mineField[idx].isBomb = true;
+					placed++;
+				}
+			}
+
+			// 3. Calculate numbers
+			for (let i = 0; i < size * size; i++) {
+				if (mineField[i].isBomb) continue;
+				let neighbors = 0;
+				const row = Math.floor(i / size);
+				const col = i % size;
+
+				for (let r = -1; r <= 1; r++) {
+					for (let c = -1; c <= 1; c++) {
+						let nr = row + r;
+						let nc = col + c;
+						if (nr >= 0 && nr < size && nc >= 0 && nc < size) {
+							if (mineField[nr * size + nc].isBomb) neighbors++;
+						}
+					}
+				}
+				mineField[i].count = neighbors;
+			}
+
+			// 4. Render the grid
+			mineField.forEach((cell, i) => {
+				const cellEl = document.createElement('div');
+				cellEl.style.width = '20px';
+				cellEl.style.height = '20px';
+				cellEl.style.background = '#bdbdbd';
+				cellEl.style.border = '2px outset #fff';
+				cellEl.style.fontSize = '12px';
+				cellEl.style.fontWeight = 'bold';
+				cellEl.style.display = 'flex';
+				cellEl.style.alignItems = 'center';
+				cellEl.style.justifyContent = 'center';
+				cellEl.style.cursor = 'pointer';
+
+				cellEl.onclick = function reveal() {
+            if (gameOver || cell.revealed) return;
+            
+            cell.revealed = true;
+            cellEl.style.border = '1px solid #7b7b7b';
+            cellEl.style.background = '#d1d1d1';
+            cellEl.style.boxShadow = 'none';
+
+            if (cell.isBomb) {
+				cellEl.innerHTML = '💣';
+				cellEl.style.background = 'red';
+				gameOver = true;
+
+				// Use a tiny timeout to let the bomb render before the alert pops up
+				setTimeout(() => {
+				alert('Game Over! You hit a bomb!');
+        
+				// OPTIONAL: Reveal all other bombs once the user clicks OK
+				mineField.forEach((otherCell, index) => {
+					if (otherCell.isBomb) {
+						const otherEl = grid.children[index];
+						otherEl.innerHTML = '💣';
+						otherEl.style.background = '#808080'; // Darker gray for unclicked bombs
+						}
+					});
+				}, 100); 
+				} else {
+                // If the cell is empty (0), click its neighbors automatically
+			if (cell.count === 0) {
+				cellEl.innerHTML = '';
+				const row = Math.floor(i / size);
+				const col = i % size;
+						
+				// Look at all 8 neighbors
+				for (let r = -1; r <= 1; r++) {
+					for (let c = -1; c <= 1; c++) {
+						let nr = row + r;
+						let nc = col + c;
+						if (nr >= 0 && nr < size && nc >= 0 && nc < size) {
+							let neighborIdx = nr * size + nc;
+							// Trigger a click on the neighbor's element
+							grid.children[neighborIdx].click();
+							}
+							}
+						}
+					} else {
+						cellEl.innerHTML = cell.count;
+						const colors = ['', 'blue', 'green', 'red', 'darkblue', 'maroon', 'teal', 'black', 'gray'];
+						cellEl.style.color = colors[cell.count];
+					}
+				}
+			};
+				grid.appendChild(cellEl);
+			});
+		}
 
         function playStartup() { document.getElementById('startup-audio').play().catch(e=>{}); document.body.onclick = null; }
         function toggleStart() { const m = document.getElementById('start-menu'); m.style.display = (m.style.display === 'block') ? 'none' : 'block'; }
@@ -337,6 +897,288 @@
             });
             document.addEventListener('mouseup', () => isDragging = false);
         });
+		
+		let seconds = 0;
+		function updateUptime() {
+			seconds++;
+			let d = Math.floor(seconds / (3600*24));
+			let h = Math.floor(seconds % (3600*24) / 3600);
+			let m = Math.floor(seconds % 3600 / 60);
+			let s = Math.floor(seconds % 60);
+			
+			const clock = document.getElementById('uptime-clock');
+			if (clock) {
+				clock.innerText = `${d}d ${h}h ${m}m ${s}s`;
+			}
+		}
+		setInterval(updateUptime, 1000);
+		
+		function selectProgram(element, company, title, dates, summary) {
+    // Reset all entries
+		document.querySelectorAll('.program-entry').forEach(el => {
+			el.style.background = 'white';
+			el.style.color = 'black';
+		});
+
+		// Highlight selected
+		element.style.background = '#000080';
+		element.style.color = 'white';
+
+		// Update details box
+		const detailBox = document.getElementById('program-details');
+		detailBox.innerHTML = `
+			<strong>Company:</strong> ${company}<br>
+			<strong>Role:</strong> ${title} (${dates})<br>
+			<strong>Status:</strong> Successfully Deployed<br>
+			<strong>Summary:</strong> ${summary}
+		`;
+	}
+
+		/* --- MS-DOS LOGIC --- */
+        const dosInput = document.getElementById('dos-input');
+        const dosHistory = document.getElementById('dos-history');
+
+        if(dosInput) {
+            dosInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    const command = this.value.toLowerCase().trim();
+                    let response = '';
+
+                    if (command === 'help') {
+                        response = 'Available commands: DIR, WHOAMI, STATUS, CLS, VER, UPTIME';
+                    } else if (command === 'dir') {
+                        response = '03-25-2026  12:34 PM    &lt;DIR&gt;          Steelcon_Infrastructure<br>03-25-2026  12:34 PM    &lt;DIR&gt;          MySQL_Backups<br>03-25-2026  12:34 PM             1,024 README.TXT';
+                    } else if (command === 'whoami') {
+                        response = 'USER: Dan Lytle<br>ROLE: IT Manager / Security Specialist';
+                    } else if (command === 'status') {
+                        response = 'NETWORK: Online<br>SECURITY: CCSE R81 Active<br>DATABASE: MySQL 8.0 Optimized';
+                    } else if (command === 'uptime') {
+                        response = 'SYSTEM UPTIME: 99.999% (High Availability Mode)';
+                    } else if (command === 'cls') {
+                        dosHistory.innerHTML = '';
+                        this.value = '';
+                        return;
+                    } else if (command === 'ver') {
+                        response = 'Windows 98 [Version 4.10.1998] - Lytle Edition';
+                    } else {
+                        response = `'${command}' is not recognized as an internal or external command.`;
+                    }
+
+                    dosHistory.innerHTML += `C:\\WINDOWS&gt; ${this.value}<br>${response}<br><br>`;
+                    this.value = '';
+                    document.getElementById('dos-content').scrollTop = document.getElementById('dos-content').scrollHeight;
+                }
+            });
+        }
+
+		document.querySelectorAll('.win98-window').forEach(win => {
+			win.addEventListener('mousedown', () => {
+				// Reset all windows, then boost the clicked one
+				document.querySelectorAll('.win98-window').forEach(w => w.style.zIndex = "100");
+				win.style.zIndex = "500";
+			});
+		});
+
+
+
+
+		/* --- SCREEN SAVER LOGIC --- */
+        function startScreenSaver() {
+            const overlay = document.getElementById('screensaver-overlay');
+            const canvas = document.getElementById('canvas');
+            if (!overlay || !canvas) return;
+
+            overlay.style.display = 'block';
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            const words = ["AZURE", "CCSE", "POWERSHELL", "MYSQL", "CHECKPOINT", "SECURITY", "IT MANAGER", "SMTP", "BCDR", "SASE"];
+            const fontSize = 18;
+            const columns = Math.floor(canvas.width / 40);
+            const drops = [];
+
+            for (let x = 0; x < columns; x++) { drops[x] = Math.random() * -100; }
+
+            function draw() {
+                ctx.fillStyle = "rgba(0, 0, 0, 0.08)";
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.fillStyle = "#39ff14";
+                ctx.font = "bold " + fontSize + "px Courier New";
+
+                for (let i = 0; i < drops.length; i++) {
+                    const text = words[Math.floor(Math.random() * words.length)];
+                    ctx.fillText(text, i * 50, drops[i] * fontSize);
+                    if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) { drops[i] = 0; }
+                    drops[i]++;
+                }
+            }
+            if (window.saverInterval) clearInterval(window.saverInterval);
+            window.saverInterval = setInterval(draw, 50);
+        }
+
+        function stopScreenSaver() {
+            document.getElementById('screensaver-overlay').style.display = 'none';
+            clearInterval(window.saverInterval);
+        }
+		
+		let isPlaying = false;
+
+		function toggleAmpMusic() {
+		const vizContainer = document.getElementById('amp-viz-container');
+		const playBtn = document.getElementById('amp-play-pause');
+		const lofi = document.getElementById('lofi-audio');
+
+		// Toggle the 'playing' class to start/stop animations
+		const isNowPlaying = vizContainer.classList.toggle('playing');
+
+		if (isNowPlaying) {
+			playBtn.innerText = "PAUSE";
+			lofi.play().catch(e => console.log("Audio play blocked. Interact with the page first!"));
+		} else {
+			playBtn.innerText = "PLAY";
+			lofi.pause();
+		}
+	}
+	
+	/* --- BugBash Global Variables --- */
+let bugScore = 0;
+let serverLoad = 0;
+let gameActive = false;
+let bugInterval;
+let gameLoop;
+
+/**
+ * Starts the Server BugBash Game
+ */
+function startBugBash() {
+    // Reset Stats
+    bugScore = 0;
+    serverLoad = 0;
+    gameActive = true;
+    
+    // UI Reset
+    document.getElementById('bug-score').innerText = "0";
+    document.getElementById('load-bar').style.width = "0%";
+    document.getElementById('start-overlay').style.display = 'none';
+    document.getElementById('game-canvas').style.boxShadow = "none";
+    
+    // Clear any leftover bugs from previous sessions
+    const oldBugs = document.querySelectorAll('.server-bug');
+    oldBugs.forEach(b => b.remove());
+
+    // Spawn a bug every 800ms
+    bugInterval = setInterval(spawnBug, 800);
+    
+    // Start the physics/load engine
+    updateGame();
+}
+
+	/**
+	 * Creates a randomized 'Bug' element and injects it into the canvas
+	 */
+	function spawnBug() {
+		if (!gameActive) return;
+		
+		const canvas = document.getElementById('game-canvas');
+		const bug = document.createElement('div');
+		
+		// Define the Threats (Unicode Emojis for 100% Uptime)
+		const threats = [
+			{ class: 'bug-spider', icon: '🕷️' },
+			{ class: 'bug-worm',   icon: '🐛' },
+			{ class: 'bug-glitch', icon: '⚡' },
+			{ class: 'bug-virus',  icon: '💀' }
+		];
+		
+		const type = threats[Math.floor(Math.random() * threats.length)];
+		
+		// Setup Bug Properties
+		bug.className = 'server-bug ' + type.class;
+		bug.innerText = type.icon;
+		bug.style.position = 'absolute';
+		bug.style.cursor = 'pointer';
+		bug.style.userSelect = 'none';
+		bug.style.fontSize = '28px';
+		
+		// Random Placement Logic
+		const maxX = canvas.clientWidth - 40;
+		const maxY = canvas.clientHeight - 40;
+		bug.style.left = Math.floor(Math.random() * maxX) + 'px';
+		bug.style.top = Math.floor(Math.random() * maxY) + 'px';
+		
+		// Patching Logic (Click Event)
+		bug.onclick = (e) => {
+			e.stopPropagation();
+			if (!gameActive) return;
+
+			bugScore++;
+			// Reward: Patching a bug drops server load by 8%
+			serverLoad = Math.max(0, serverLoad - 8); 
+			document.getElementById('bug-score').innerText = bugScore;
+			
+			// Visual Feedback: Show a checkmark before it disappears
+			bug.innerText = '✅';
+			bug.style.transform = 'scale(1.2)';
+			setTimeout(() => bug.remove(), 100);
+		};
+		
+		canvas.appendChild(bug);
+		}
+
+		/**
+		 * The Game Engine: Tracks system load and handles the 'Crash' condition
+		 */
+		function updateGame() {
+			if (!gameActive) return;
+
+			// Increase load based on current score (gets harder over time)
+			const difficultyMultiplier = 1 + (bugScore / 50);
+			serverLoad += (0.15 * difficultyMultiplier); 
+			
+			const loadBar = document.getElementById('load-bar');
+			const canvas = document.getElementById('game-canvas');
+
+			// Update UI Progress Bar
+			loadBar.style.width = serverLoad + '%';
+
+			// Visual Warning: Red glow when system load > 75%
+			if (serverLoad > 75) {
+				canvas.style.boxShadow = "inset 0 0 20px rgba(255, 0, 0, 0.6)";
+				loadBar.style.backgroundColor = "#ff0000";
+			} else {
+				canvas.style.boxShadow = "none";
+				loadBar.style.backgroundColor = "#39ff14";
+			}
+
+			// GAME OVER CONDITION
+			if (serverLoad >= 100) {
+				endBugBash();
+			} else {
+				gameLoop = requestAnimationFrame(updateGame);
+			}
+		}
+
+		/**
+		 * Handles System Crash (Game Over)
+		 */
+		function endBugBash() {
+			gameActive = false;
+			clearInterval(bugInterval);
+			cancelAnimationFrame(gameLoop);
+			
+			// Final UI cleanup
+			const finalScore = bugScore;
+			alert("CRITICAL SYSTEM FAILURE!\n\nKernel Panic: Too many unpatched bugs.\nBugs remediated: " + finalScore);
+			
+			document.getElementById('start-overlay').style.display = 'block';
+			
+			// Optional: Log the score to a 'Server Log' or local storage
+			console.log("IT Score logged: " + finalScore);
+		}	
+				
+		
+	
     </script>
 </body>
 </html>
