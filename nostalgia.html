@@ -97,8 +97,18 @@
 
         .start-item { padding: 10px; cursor: pointer; font-size: 12px; color: black; text-decoration: none; display: block; }
         .start-item:hover { background: #000080; color: white; }
-
-        .desktop-icons { position: absolute; top: 20px; left: 20px; display: flex; flex-direction: column; gap: 25px; }
+        .desktop-icons { 
+    	position: absolute; 
+    	top: 20px; 
+    	left: 20px; 
+    	display: grid;
+    	grid-auto-flow: column;
+    	/* This is the magic */
+    	grid-template-rows: repeat(auto-fill, minmax(85px, 1fr));
+    	/* Let it use full height */
+    	height: calc(100vh - 60px);
+    	gap: 20px;
+	}
         .icon-unit { width: 75px; text-align: center; color: white; font-size: 11px; text-shadow: 1px 1px #000; cursor: pointer; }
 
         #shutdown-screen {
